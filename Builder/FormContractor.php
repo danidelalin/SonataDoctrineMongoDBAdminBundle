@@ -102,12 +102,12 @@ class FormContractor implements FormContractorInterface
                     break;
                 case ClassMetadataInfo::MANY:
                     $options['multiple'] = true;
-                    $options['parent'] = 'choice';
+//                    $options['parent'] = 'choice';
                     break;
             }
 
             if ($fieldDescription->getOption('edit') == 'list') {
-                $options['parent'] = 'text';
+                //$options['parent'] = 'text';
 
                 if (!array_key_exists('required', $options)) {
                     $options['required'] = false;
@@ -119,8 +119,6 @@ class FormContractor implements FormContractorInterface
                 throw new \RuntimeException(sprintf('The current field `%s` is not linked to an admin. Please create one for the target entity : `%s`', $fieldDescription->getName(), $fieldDescription->getTargetEntity()));
             }
         } else if ($type == 'sonata_type_collection') {
-
-            throw new \RuntimeException('Type "sonata_type_collection" is not yet implemented.');
 
             if (!$fieldDescription->getAssociationAdmin()) {
                 throw new \RuntimeException(sprintf('The current field `%s` is not linked to an admin. Please create one for the target entity : `%s`', $fieldDescription->getName(), $fieldDescription->getTargetEntity()));
