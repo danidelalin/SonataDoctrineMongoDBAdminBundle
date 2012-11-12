@@ -1,5 +1,5 @@
 {
-    "name": "sonata-project/doctrine-mongodb-admin-bundle",
+    "name": "danidelalin/doctrine-mongodb-admin-bundle",
     "type": "symfony-bundle",
     "description": "Symfony Sonata / Integrate Doctrine MongoDB ODM into the SonataAdminBundle",
     "keywords": ["Admin Generator", "admin", "sonata", "bootstrap", "Mongo"],
