@@ -61,6 +61,10 @@ class FieldDescription extends BaseFieldDescription
         if ($this->associationMapping) {
             return $this->associationMapping['targetDocument'];
         }
+        
+        if ($this->fieldMapping) {
+            return $this->fieldMapping['targetDocument'];
+        }
 
         return null;
     }

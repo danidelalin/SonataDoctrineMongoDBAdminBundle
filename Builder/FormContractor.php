@@ -113,6 +113,10 @@ class FormContractor implements FormContractorInterface
                     $options['required'] = false;
                 }
             }
+        } else if ($type == 'sonata_type_model_list') {
+            $options['class'] = $fieldDescription->getTargetEntity();
+            $options['model_manager'] = $fieldDescription->getAdmin()->getModelManager();
+            
         } else if ($type == 'sonata_type_admin') {
 
             if (!$fieldDescription->getAssociationAdmin()) {
