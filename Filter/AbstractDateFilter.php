@@ -37,7 +37,7 @@ abstract class AbstractDateFilter extends Filter {
                 return;
             }
 
-            if (!$data['value']['start'] || !$data['value']['end']) {
+            if (!$data['value']['start']) {
                 return;
             }
 
@@ -56,10 +56,16 @@ abstract class AbstractDateFilter extends Filter {
             if ($data['type'] == DateRangeType::TYPE_NOT_BETWEEN) {
                 $this->setCondition(self::CONDITION_OR);
                 $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_LESS_THAN), $startDate);
-                $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_GREATER_THAN), $endDate);
+                if($endDate) {
+                    $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_GREATER_THAN), $endDate);
+                }
             } else {
+                ld($data['value']);
+                $this->setCondition(self::CONDITION_AND);
                 $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_GREATER_EQUAL), $startDate);
-                $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_LESS_EQUAL), $endDate);
+                if($endDate) {
+                    $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_LESS_EQUAL), $endDate);
+                }
             }
         } else {
 
@@ -82,7 +88,7 @@ abstract class AbstractDateFilter extends Filter {
                     //should be between the selected day at 00:00 and the day after at 00:00
                     $selectedDay = clone $data['value'];
                     $nextDay = date_add($data['value'], \DateInterval::createFromDateString('1 day'));
-                    
+
                     //transform types
                     if ($this->getOption('input_type') == 'timestamp') {
                         $selectedDay = $selectedDay->getTimestamp();
@@ -92,7 +98,7 @@ abstract class AbstractDateFilter extends Filter {
                     $this->setCondition(self::CONDITION_AND);
                     $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_GREATER_EQUAL), $selectedDay);
                     $this->applyWhere($queryBuilder, $field, $this->getOperator(DateType::TYPE_LESS_THAN), $nextDay);
-                    
+
                 } else {
 
                     //transform types
